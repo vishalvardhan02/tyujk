@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import gunicorn
 
-df = pd.read_csv("C:/Users/admin/proj/Water_quality.csv")
+df = pd.read_csv("Water_quality.csv")
 
 params = ['ph', 'Hardness', 'Solids', 'Chloramines', 'Sulfate', 'Conductivity', 'Organic_carbon', 'Trihalomethanes', 'Turbidity']
 filled = []
