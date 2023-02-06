@@ -17,4 +17,3 @@ uvicorn
 uvloop
 httptools
 xgboost
-inspect
