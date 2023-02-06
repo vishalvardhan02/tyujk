@@ -5,7 +5,6 @@ import pickle
 import numpy as np
 import pandas as pd
 import gunicorn
-import inspect
 
 df = pd.read_csv("Water_Quality.csv")
 
@@ -32,9 +31,8 @@ def homeFunction():
 @app.post("/Auto_fill")
 def autoFill(parameters: model):
     random_fill = 1
-    attributes = inspect.getmembers(parameters, lambda a:not(inspect.isroutine(a)))
     upper = {"ph":2, "Hardness":10, "Solids":10000, "Chloramines":2, "Sulfate":10, "Conductivity":10,"Organic_carbon":3, "Trihalomethanes":10, "Turbidity":2}
-    x = dict([a for a in attributes if not(a[0].startswith('__')) and not(a[0].startswith('_')) and not(a[0]=="Config")])
+    x = {"ph":parameters.ph, "Hardness":parameters.Hardness, "Solids":parameters.Solids, "Chloramines":parameters.Chloramines, "Sulfate": parameters.Sulfate, "Conductivity":parameters.Conductivity, "Organic_carbon":parameters.Organic_carbon, "Trihalomethanes":parameters.Organic_carbon, "Turbidity":parameters.Turbidity}
     for i in params:
         if(x[i]!=""):
             filled.append(i)
@@ -53,9 +51,6 @@ def autoFill(parameters: model):
             if(value>1000):
                 while(value%1000!=0):
                     value -=value%1000
-            print(value)
             final_df = final_df[(final_df[i]>=value) & (final_df[i]<value+upper[i])]
-        print(final_df)
         random = list(final_df.values)
         return random
-    
