@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import gunicorn
 
-df = pd.read_csv("Water_quality.csv")
+df = pd.read_csv("C:/Users/admin/proj/Water_quality.csv")
 
 params = ['ph', 'Hardness', 'Solids', 'Chloramines', 'Sulfate', 'Conductivity', 'Organic_carbon', 'Trihalomethanes', 'Turbidity']
 filled = []
@@ -39,7 +39,7 @@ def autoFill(parameters: model):
             random_fill = 0
     if(random_fill==1):
         random = list(df.sample(1).values)
-        return random
+        return str(random)
     else:
         final_df = df
         final_df = final_df.drop("Potability", axis=1)
@@ -53,4 +53,4 @@ def autoFill(parameters: model):
                     value -=value%1000
             final_df = final_df[(final_df[i]>=value) & (final_df[i]<value+upper[i])]
         random = list(final_df.values)
-        return random
+        return str(random)
