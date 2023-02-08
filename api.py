@@ -47,7 +47,6 @@ def autoFill(parameters: model):
         return cv
     else:
         final_df = df
-        final_df = final_df.drop("Potability", axis=1)
         for i in filled:
             if(x[i]==""):
                 continue
@@ -59,10 +58,12 @@ def autoFill(parameters: model):
                 while(value%1000!=0):
                     value -=value%1000
             final_df = final_df[(final_df[i]>=value) & (final_df[i]<value+upper[i])]
-        random = list(final_df.values)
+        random = list(final_df.values) 
         out = {}
         for i in range(len(random)):
             out[i] = list(random[i])
         c = {}
         c['output'] = out
         return c
+
+# uvicorn.run(app)
